@@ -78,15 +78,15 @@ export default function TypeDetailPage({
       <div className="flex gap-2">
         <Link
           href={`/compatibility?b=${t.type_code}`}
-          className="flex-1 rounded-full bg-teal px-4 py-3 text-center text-sm font-bold text-white"
+          className="flex flex-1 items-center justify-center whitespace-nowrap rounded-full bg-teal px-4 py-3 text-sm font-bold text-white"
         >
-          このタイプとの相性を見る
+          相性を見る
         </Link>
         <Link
           href={`/people?add=${t.type_code}`}
-          className="flex-1 rounded-full border border-teal px-4 py-3 text-center text-sm font-bold text-teal"
+          className="flex flex-1 items-center justify-center whitespace-nowrap rounded-full border border-teal px-4 py-3 text-sm font-bold text-teal"
         >
-          この人を登録する
+          人物に登録する
         </Link>
       </div>
 

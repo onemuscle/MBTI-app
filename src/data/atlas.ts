@@ -106,23 +106,27 @@ export const AXES = [
 
 export type AxisKey = (typeof AXES)[number]["key"];
 
+// 各タイプの心理機能（主機能・補助機能・劣等機能）に基づいて設定。
+// 例: 感情表現軸は「感情を外に出すか」なので、Te主導のENTJ/ESTJは
+// 意見は率直でも感情表現は低め。Fe持ち（ENFJ/ESFJ等）は高め。
+// Fi主導（INFP/ISFP）は深く感じるが内で処理するため低め。
 export const AXIS_SCORES: Record<TypeCode, Record<AxisKey, number>> = {
-  INTJ: { speed: 30, granularity: 78, decision: 15, planning: 20, expression: 20, repair: 25 },
-  INTP: { speed: 35, granularity: 85, decision: 18, planning: 75, expression: 25, repair: 30 },
-  ENTJ: { speed: 80, granularity: 65, decision: 10, planning: 15, expression: 65, repair: 55 },
-  ENTP: { speed: 85, granularity: 88, decision: 25, planning: 80, expression: 75, repair: 65 },
-  INFJ: { speed: 30, granularity: 75, decision: 70, planning: 30, expression: 35, repair: 45 },
-  INFP: { speed: 32, granularity: 80, decision: 85, planning: 70, expression: 40, repair: 40 },
-  ENFJ: { speed: 75, granularity: 70, decision: 80, planning: 25, expression: 80, repair: 80 },
-  ENFP: { speed: 85, granularity: 85, decision: 78, planning: 80, expression: 85, repair: 75 },
-  ISTJ: { speed: 25, granularity: 15, decision: 25, planning: 15, expression: 20, repair: 20 },
-  ISFJ: { speed: 28, granularity: 20, decision: 70, planning: 25, expression: 30, repair: 45 },
-  ESTJ: { speed: 78, granularity: 20, decision: 15, planning: 10, expression: 60, repair: 50 },
-  ESFJ: { speed: 75, granularity: 25, decision: 78, planning: 20, expression: 78, repair: 80 },
-  ISTP: { speed: 35, granularity: 25, decision: 20, planning: 78, expression: 18, repair: 22 },
-  ISFP: { speed: 30, granularity: 30, decision: 80, planning: 75, expression: 35, repair: 38 },
-  ESTP: { speed: 88, granularity: 22, decision: 25, planning: 85, expression: 70, repair: 60 },
-  ESFP: { speed: 85, granularity: 28, decision: 75, planning: 80, expression: 85, repair: 78 },
+  INTJ: { speed: 28, granularity: 78, decision: 12, planning: 15, expression: 18, repair: 30 },
+  INTP: { speed: 35, granularity: 85, decision: 15, planning: 78, expression: 25, repair: 30 },
+  ENTJ: { speed: 82, granularity: 65, decision: 8, planning: 12, expression: 40, repair: 65 },
+  ENTP: { speed: 88, granularity: 88, decision: 25, planning: 80, expression: 60, repair: 65 },
+  INFJ: { speed: 30, granularity: 78, decision: 68, planning: 28, expression: 38, repair: 45 },
+  INFP: { speed: 30, granularity: 78, decision: 88, planning: 70, expression: 32, repair: 35 },
+  ENFJ: { speed: 75, granularity: 68, decision: 82, planning: 25, expression: 85, repair: 80 },
+  ENFP: { speed: 85, granularity: 85, decision: 78, planning: 80, expression: 78, repair: 72 },
+  ISTJ: { speed: 25, granularity: 12, decision: 22, planning: 12, expression: 18, repair: 25 },
+  ISFJ: { speed: 28, granularity: 18, decision: 68, planning: 22, expression: 35, repair: 45 },
+  ESTJ: { speed: 80, granularity: 18, decision: 12, planning: 8, expression: 45, repair: 60 },
+  ESFJ: { speed: 75, granularity: 22, decision: 78, planning: 18, expression: 80, repair: 78 },
+  ISTP: { speed: 35, granularity: 22, decision: 15, planning: 78, expression: 15, repair: 20 },
+  ISFP: { speed: 30, granularity: 30, decision: 82, planning: 72, expression: 30, repair: 35 },
+  ESTP: { speed: 90, granularity: 20, decision: 22, planning: 85, expression: 55, repair: 60 },
+  ESFP: { speed: 85, granularity: 28, decision: 75, planning: 80, expression: 80, repair: 75 },
 };
 
 export type Relation = "work" | "friend" | "love";
