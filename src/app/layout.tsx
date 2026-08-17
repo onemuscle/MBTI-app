@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
+import { Oswald, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+
+const display = Oswald({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+});
+
+const body = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
   title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
@@ -14,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className="antialiased min-h-screen pb-20 md:pb-0 md:pt-16">
+    <html lang="ja" className={`${display.variable} ${body.variable}`}>
+      <body className="font-sans antialiased min-h-screen pb-20 md:pb-0 md:pt-16">
         <Nav />
         <main className="mx-auto max-w-3xl px-4 py-6">{children}</main>
         <footer className="mx-auto max-w-3xl px-4 pb-8 pt-4 text-center text-xs text-ink/50">

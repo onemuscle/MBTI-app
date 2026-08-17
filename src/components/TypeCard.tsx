@@ -13,7 +13,7 @@ export default function TypeCard({ code }: { code: string }) {
     >
       <CharacterAvatar code={t.type_code} size={88} />
       <div className="text-center">
-        <div className="font-mono text-sm font-bold tracking-widest" style={{ color }}>
+        <div className="font-display tracking-wide text-sm font-bold tracking-widest" style={{ color }}>
           {t.type_code}
         </div>
         <div className="text-base font-bold text-ink">{t.role}</div>

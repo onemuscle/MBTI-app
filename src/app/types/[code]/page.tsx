@@ -65,7 +65,7 @@ export default function TypeDetailPage({
         <CharacterAvatar code={t.type_code} size={110} />
         <div>
           <div
-            className="font-mono text-sm font-bold tracking-widest"
+            className="font-display tracking-wide text-sm font-bold tracking-widest"
             style={{ color: group.color }}
           >
             {t.type_code}

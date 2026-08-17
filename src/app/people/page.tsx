@@ -200,7 +200,7 @@ function PeopleInner() {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-bold text-ink">{p.nickname}</span>
-                  <span className="font-mono text-xs font-bold text-teal">
+                  <span className="font-display tracking-wide text-xs font-bold text-teal">
                     {p.type_code}
                   </span>
                   <span className="chip bg-mist text-xs text-ink/60">

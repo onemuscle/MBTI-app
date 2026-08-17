@@ -21,7 +21,10 @@ export default function Nav() {
       {/* デスクトップ: 上部バー */}
       <header className="fixed inset-x-0 top-0 z-40 hidden border-b border-ink/10 bg-white/90 backdrop-blur md:block">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
-          <Link href="/" className="text-lg font-bold tracking-wide text-ink">
+          <Link
+            href="/"
+            className="font-display text-xl font-bold uppercase tracking-[0.15em] text-ink"
+          >
             TYPE <span className="text-teal">ATLAS</span>
           </Link>
           <nav className="flex gap-1">

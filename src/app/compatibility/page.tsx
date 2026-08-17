@@ -190,7 +190,7 @@ function CompatibilityInner() {
                   }`}
                 >
                   {p.nickname}
-                  <span className="font-mono text-xs">{p.type_code}</span>
+                  <span className="font-display tracking-wide text-xs">{p.type_code}</span>
                 </button>
               ))}
             </div>
@@ -237,13 +237,13 @@ function CompatibilityInner() {
             <div className="flex items-center justify-center gap-2">
               <div className="flex flex-col items-center">
                 <CharacterAvatar code={self} size={72} showBadge={false} />
-                <span className="font-mono text-xs font-bold text-ink/70">{self}</span>
+                <span className="font-display tracking-wide text-xs font-bold text-ink/70">{self}</span>
                 <span className="text-[11px] text-ink/50">あなた</span>
               </div>
               <span className="px-2 text-2xl text-ink/30">×</span>
               <div className="flex flex-col items-center">
                 <CharacterAvatar code={other} size={72} showBadge={false} />
-                <span className="font-mono text-xs font-bold text-ink/70">{other}</span>
+                <span className="font-display tracking-wide text-xs font-bold text-ink/70">{other}</span>
                 <span className="text-[11px] text-ink/50">
                   {person ? person.nickname : otherType.role}
                 </span>

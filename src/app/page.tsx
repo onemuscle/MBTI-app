@@ -48,7 +48,7 @@ export default function HomePage() {
           <div className="min-w-0">
             <p className="text-xs text-ink/50">あなたは</p>
             <h1 className="text-xl font-bold text-ink">
-              <span className="font-mono text-teal">{selfType.type_code}</span>{" "}
+              <span className="font-display tracking-wide text-teal">{selfType.type_code}</span>{" "}
               / {selfType.role}
             </h1>
             <p className="mt-1.5 rounded-lg bg-gold/10 px-3 py-2 text-xs leading-relaxed text-ink/80">
@@ -74,7 +74,10 @@ export default function HomePage() {
       ) : (
         <section className="card p-5">
           <h1 className="text-xl font-bold text-ink">
-            TYPE <span className="text-teal">ATLAS</span> へようこそ
+            <span className="font-display uppercase tracking-[0.12em]">
+              TYPE <span className="text-teal">ATLAS</span>
+            </span>{" "}
+            へようこそ
           </h1>
           <p className="mt-1 text-sm leading-relaxed text-ink/70">
             16タイプの性格図鑑と、仕事・友達・恋愛の関係別相性ナビ。
@@ -118,7 +121,7 @@ export default function HomePage() {
                 <span className="max-w-full truncate text-sm font-bold text-ink">
                   {p.nickname}
                 </span>
-                <span className="font-mono text-xs text-teal">{p.type_code}</span>
+                <span className="font-display tracking-wide text-xs text-teal">{p.type_code}</span>
                 <span className="chip bg-mist text-[11px] text-ink/60">
                   {RELATIONS[p.relation].label}
                 </span>
@@ -181,7 +184,7 @@ export default function HomePage() {
                   href={`/types/${code}`}
                   className="chip border border-ink/10 bg-white font-medium text-ink/80"
                 >
-                  <span className="font-mono text-xs font-bold text-teal">{code}</span>
+                  <span className="font-display tracking-wide text-xs font-bold text-teal">{code}</span>
                   {t.role}
                 </Link>
               );
