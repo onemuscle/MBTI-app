@@ -246,7 +246,7 @@ export default function CharacterAvatar({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={`/characters/${t.type_code}.jpg`}
+      src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/characters/${t.type_code}.jpg`}
       alt={`${t.role}（${t.type_code}）のキャラクター`}
       width={size}
       height={size}
