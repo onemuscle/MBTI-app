@@ -1,7 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { getType, GROUPS } from "@/data/atlas";
 
-// 独自デザインの幾何学フラットキャラクター（設計書9章）。
-// 既存サービスのキャラクターを参照せず、丸みのある図形 + タイプ別の小物で構成する。
+// キャラクター表示。public/characters/{CODE}.jpg に写真素材があればそれを表示し、
+// 無い場合は独自デザインの幾何学フラットSVG（設計書9章）にフォールバックする。
 
 function shade(hex: string, amount: number): string {
   const n = parseInt(hex.slice(1), 16);
@@ -145,14 +148,14 @@ function Prop({ code, color }: { code: string; color: string }) {
   }
 }
 
-export default function CharacterAvatar({
+function FallbackSvg({
   code,
-  size = 96,
-  showBadge = true,
+  size,
+  showBadge,
 }: {
   code: string;
-  size?: number;
-  showBadge?: boolean;
+  size: number;
+  showBadge: boolean;
 }) {
   const t = getType(code);
   if (!t) return null;
@@ -187,10 +190,7 @@ export default function CharacterAvatar({
         </>
       )}
       {/* 体（丸みのある台形風） */}
-      <path
-        d="M32,116 L32,92 Q32,72 60,72 Q88,72 88,92 L88,116 Z"
-        fill={color}
-      />
+      <path d="M32,116 L32,92 Q32,72 60,72 Q88,72 88,92 L88,116 Z" fill={color} />
       {/* 襟元 */}
       <path d="M50,74 Q60,82 70,74 L70,80 Q60,88 50,80 Z" fill={shade(color, -25)} />
       {/* 頭 */}
@@ -223,5 +223,36 @@ export default function CharacterAvatar({
         </g>
       )}
     </svg>
+  );
+}
+
+export default function CharacterAvatar({
+  code,
+  size = 96,
+  showBadge = true,
+}: {
+  code: string;
+  size?: number;
+  showBadge?: boolean;
+}) {
+  const [photoFailed, setPhotoFailed] = useState(false);
+  const t = getType(code);
+  if (!t) return null;
+
+  if (photoFailed) {
+    return <FallbackSvg code={code} size={size} showBadge={showBadge} />;
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`/characters/${t.type_code}.jpg`}
+      alt={`${t.role}（${t.type_code}）のキャラクター`}
+      width={size}
+      height={size}
+      className="shrink-0 rounded-[24%] object-cover object-top"
+      style={{ width: size, height: size }}
+      onError={() => setPhotoFailed(true)}
+    />
   );
 }
