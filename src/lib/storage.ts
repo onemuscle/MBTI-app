@@ -27,6 +27,8 @@ const KEYS = {
   people: "typeatlas.people",
   insights: "typeatlas.insights",
   recentTypes: "typeatlas.recentTypes",
+  viewedTypes: "typeatlas.viewedTypes",
+  viewedPairs: "typeatlas.viewedPairs",
 };
 
 function read<T>(key: string, fallback: T): T {
@@ -117,6 +119,53 @@ export function pushRecentType(code: string) {
   const list = getRecentTypes().filter((c) => c !== code);
   list.unshift(code);
   write(KEYS.recentTypes, list.slice(0, 8));
+}
+
+// ---- 図鑑コンプリート（閲覧記録） ----
+
+export function getViewedTypes(): string[] {
+  return read<string[]>(KEYS.viewedTypes, []);
+}
+
+export function markTypeViewed(code: string) {
+  const list = getViewedTypes();
+  if (!list.includes(code)) {
+    list.push(code);
+    write(KEYS.viewedTypes, list);
+  }
+}
+
+export function getViewedPairs(): string[] {
+  return read<string[]>(KEYS.viewedPairs, []);
+}
+
+export function markPairViewed(a: string, b: string, relation: string) {
+  const key = [`${[a, b].sort().join("x")}`, relation].join(":");
+  const list = getViewedPairs();
+  if (!list.includes(key)) {
+    list.push(key);
+    write(KEYS.viewedPairs, list);
+  }
+}
+
+export interface CollectionTitle {
+  name: string;
+  condition: string;
+  earned: boolean;
+}
+
+export function getCollectionTitles(): CollectionTitle[] {
+  const types = getViewedTypes().length;
+  const pairs = getViewedPairs().length;
+  const people = getPeople().length;
+  return [
+    { name: "はじめの一歩", condition: "タイプを1つ見る", earned: types >= 1 },
+    { name: "タイプの観察者", condition: "タイプを8つ見る", earned: types >= 8 },
+    { name: "図鑑コンプリート", condition: "16タイプすべてを見る", earned: types >= 16 },
+    { name: "関係の読み手", condition: "相性を5通り見る", earned: pairs >= 5 },
+    { name: "相性の編集者", condition: "相性を20通り見る", earned: pairs >= 20 },
+    { name: "人物図鑑の主", condition: "人物を3人登録する", earned: people >= 3 },
+  ];
 }
 
 export function exportAllData(): string {

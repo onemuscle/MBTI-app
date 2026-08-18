@@ -7,6 +7,7 @@ const TABS = [
   { href: "/", label: "ホーム", icon: "🏠" },
   { href: "/types", label: "図鑑", icon: "📖" },
   { href: "/compatibility", label: "相性", icon: "🔗" },
+  { href: "/consult", label: "相談", icon: "💬" },
   { href: "/people", label: "人物", icon: "👥" },
   { href: "/my", label: "マイページ", icon: "⚙️" },
 ];

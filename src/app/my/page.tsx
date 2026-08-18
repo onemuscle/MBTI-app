@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { getType } from "@/data/atlas";
 import {
+  CollectionTitle,
   deleteAllData,
   deleteInsight,
   exportAllData,
+  getCollectionTitles,
   getInsights,
   getSelfType,
   SavedInsight,
@@ -16,11 +18,13 @@ import TypeSelect from "@/components/TypeSelect";
 export default function MyPage() {
   const [self, setSelf] = useState<string>("");
   const [insights, setInsights] = useState<SavedInsight[]>([]);
+  const [titles, setTitles] = useState<CollectionTitle[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setSelf(getSelfType() ?? "");
     setInsights(getInsights());
+    setTitles(getCollectionTitles());
     setLoaded(true);
   }, []);
 
@@ -64,6 +68,29 @@ export default function MyPage() {
             setSelfType(v || null);
           }}
         />
+      </section>
+
+      <section className="card p-5">
+        <h2 className="mb-3 text-sm font-bold text-ink">
+          🏅 称号（{titles.filter((t) => t.earned).length}/{titles.length}）
+        </h2>
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {titles.map((t) => (
+            <li
+              key={t.name}
+              className={`rounded-lg border p-3 ${
+                t.earned
+                  ? "border-gold/40 bg-gold/5"
+                  : "border-ink/10 bg-mist opacity-60"
+              }`}
+            >
+              <div className={`text-sm font-bold ${t.earned ? "text-gold" : "text-ink/40"}`}>
+                {t.earned ? "🏅" : "🔒"} {t.name}
+              </div>
+              <div className="mt-0.5 text-xs text-ink/50">{t.condition}</div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="card p-5">

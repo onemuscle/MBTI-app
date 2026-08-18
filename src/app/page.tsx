@@ -138,6 +138,31 @@ export default function HomePage() {
         </section>
       )}
 
+      {/* シーンカード */}
+      <section>
+        <h2 className="mb-2 text-sm font-bold text-ink">シーンから相談する</h2>
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+          {[
+            ["apologize", "🙇 謝る"],
+            ["invite", "🙌 誘う"],
+            ["decline", "🙅 断る"],
+            ["consult", "💬 相談する"],
+            ["praise", "🌟 褒める"],
+            ["feedback", "📝 指摘する"],
+            ["confess", "💌 告白する"],
+            ["distance", "🌙 距離を置く"],
+          ].map(([slug, label]) => (
+            <Link
+              key={slug}
+              href={`/consult?scene=${slug}`}
+              className="chip shrink-0 border border-ink/10 bg-white font-medium text-ink/80"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* 主要導線 */}
       <section className="grid grid-cols-2 gap-3">
         <Link href="/compatibility" className="card p-4">

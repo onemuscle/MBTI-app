@@ -1,5 +1,6 @@
 import { GROUPS, TYPE_CODES, TYPES, GroupKey } from "@/data/atlas";
 import TypeCard from "@/components/TypeCard";
+import CollectionProgress from "@/components/CollectionProgress";
 
 export const metadata = { title: "16タイプ図鑑 | Type Atlas" };
 
@@ -14,6 +15,7 @@ export default function TypesPage() {
           気になるタイプを選ぶと、特徴・会話のコツ・ストレスサインまで見られます。
         </p>
       </div>
+      <CollectionProgress />
       {GROUP_ORDER.map((g) => {
         const group = GROUPS[g];
         const codes = TYPE_CODES.filter((c) => TYPES[c].group === g);

@@ -203,6 +203,126 @@ function headline(axes: AxisResult[], total: number): string {
     : "似た所と違う所が半々。知って付き合うと楽な二人。";
 }
 
+// 距離感別アドバイス（設計書4章: 温度感スライダー）
+export type Distance = "first" | "close" | "tense";
+
+export function distanceTips(
+  distance: Distance,
+  axes: AxisResult[],
+  bLabel: string
+): string[] {
+  const tips: string[] = [];
+  const big = axes
+    .filter((x) => x.diff >= 40)
+    .sort((x, y) => y.diff * y.weight - x.diff * x.weight);
+  const top = big[0];
+
+  if (distance === "first") {
+    tips.push(
+      `まだお互いのパターンが読めない時期。${bLabel}の反応を「性格」と決めつけず、2〜3回は様子を見る余裕を持つとうまくいきやすい。`
+    );
+    if (top?.key === "speed")
+      tips.push("返信や反応の速さの差は、初対面期は特に誤解されやすいポイント。「遅い＝脈なし/やる気なし」と早合点しないこと。");
+    else if (top?.key === "planning")
+      tips.push("最初のうちは約束の変更を最小限に。信頼貯金ができる前のドタキャンは、後々まで印象に残ります。");
+    else if (top?.key === "expression")
+      tips.push("感情表現の量の差は初期ほど大きく見えます。リアクションが薄くても興味がないとは限りません。");
+    else if (top)
+      tips.push(`一番差が大きいのは「${top.label}」。最初の数回はここでの違和感を「相性が悪い」と結論づけないのがコツ。`);
+    tips.push("小さな約束（時間を守る・言ったことをやる）を一つずつ果たすのが、どのタイプ相手でも最強の初期戦略。");
+  } else if (distance === "close") {
+    tips.push(
+      "仲良くなった今こそ「慣れによる雑さ」に注意。関係の摩擦の多くは、遠慮がなくなった時期に始まります。"
+    );
+    if (top?.key === "planning")
+      tips.push(`親しくなると予定変更やドタキャンが増えがち。${bLabel}にとってそれは「軽く扱われている」サインに見えることがあります。`);
+    else if (top?.key === "repair")
+      tips.push("仲が良いほど衝突後の「いつもの仲直りパターン」が固定化します。うまくいっていないなら、今のうちに仲直りの型を話し合っておくと強い。");
+    else if (top?.key === "expression")
+      tips.push(`「言わなくても分かるだろう」が増える時期。${bLabel}との感情表現の差は、言葉にする習慣で埋め続けるのが安全です。`);
+    else if (top)
+      tips.push(`「${top.label}」の違いは慣れても消えません。相手が合わせてくれている部分に、時々気づいて感謝を言葉にすると長続きします。`);
+    tips.push("関係メモに「この人に効いた接し方」を貯めておくと、マンネリや惰性を防げます。");
+  } else {
+    tips.push(
+      "緊張状態のときは、正しさの主張より「安全な空気」の回復が最優先。どちらが正しいかの決着は後回しでいい。"
+    );
+    if (top?.key === "repair")
+      tips.push("修復ペースの違いが今一番効いています。「話したい側」は待つ勇気を、「置きたい側」は期限を伝える誠実さを。");
+    else
+      tips.push(`今は「${top ? top.label : "違い"}」の差がいつもより大きく見える状態。相手の行動を最悪の意図で解釈しないよう意識的にブレーキを。`);
+    tips.push("連絡は短く、事務的になりすぎず。「関係を切りたいわけではない」が伝わる一言（絵文字一つでも）が緊張を下げます。");
+  }
+  return tips.slice(0, 4);
+}
+
+// 衝突リカバリー手順書（時系列の詳細版）
+export interface RecoveryPlaybook {
+  phases: { title: string; items: string[] }[];
+}
+
+export function buildRecoveryPlaybook(
+  aCode: TypeCode,
+  bCode: TypeCode,
+  bLabel: string
+): RecoveryPlaybook {
+  const a = AXIS_SCORES[aCode];
+  const b = AXIS_SCORES[bCode];
+  const aTalk = a.repair >= 50;
+  const bTalk = b.repair >= 50;
+  const bFeeling = b.decision >= 50;
+  const bType = getType(bCode);
+
+  const immediately: string[] = [];
+  const sameDay: string[] = [];
+  const nextDays: string[] = [];
+  const after: string[] = [];
+
+  // 直後（〜30分）
+  immediately.push("まず深呼吸。感情のピークは長くても20〜30分。ここで送るメッセージが一番危険。");
+  if (aTalk && !bTalk) {
+    immediately.push(`あなたはすぐ話して解消したいタイプですが、${bLabel}は一度整理したいタイプ。今追いかけるほど遠ざかります。「落ち着いたら話そう。待ってる」だけ伝えて手を止める。`);
+  } else if (!aTalk && bTalk) {
+    immediately.push(`${bLabel}はすぐ話したいタイプ。無言で離れると不安が増幅します。「今は頭を冷やしたい。明日必ず話す」と期限付きで伝えてから離れる。`);
+  } else if (aTalk && bTalk) {
+    immediately.push("二人ともすぐ話したいタイプ。ただし熱いまま話すと論点がずれます。「5分だけ休憩してから話そう」と一呼吸挟むのが有効。");
+  } else {
+    immediately.push("二人とも時間を置きたいタイプ。無理に話さなくてOK。ただし「いつ話すか」だけは決めてから離れること（自然消滅が最大のリスク）。");
+  }
+
+  // 当日中
+  sameDay.push(
+    bFeeling
+      ? `${bLabel}に短く一言だけ送る:「言い過ぎた（言い方が悪かった）。あなたとの関係は大事に思ってる」。内容の決着はまだつけない。`
+      : `${bLabel}に短く一言だけ送る:「さっきは整理できてなかった。改めて話したい」。感情的な長文より、事実ベースの短文が届きます。`
+  );
+  sameDay.push("自分側の整理: 「何に怒った/傷ついたのか」を一つに絞る。論点が3つ以上ある喧嘩は解決しません。");
+
+  // 数日以内（話し合い）
+  nextDays.push(
+    bFeeling
+      ? "話し合いの順番: ①相手の気持ちを最後まで聞く → ②自分の気持ちを「私は〜と感じた」で伝える → ③事実の整理は最後。順番を逆にすると再燃します。"
+      : "話し合いの順番: ①事実のすり合わせ（何が起きたか）→ ②お互いの意図の確認 → ③今後のルール決め。気持ちの話は責める形にしないこと。"
+  );
+  nextDays.push("「どっちが悪かったか」ではなく「次に同じ状況が来たらどうするか」を一つ決めて終える。");
+  if (bType) {
+    nextDays.push(`${bLabel}（${bType.role}）への効き方: ${bType.recovery_tips[0]}`);
+  }
+
+  // 仲直り後
+  after.push("仲直り後24時間は蒸し返さない。追加の言い分を思い出しても、次の機会に回す。");
+  after.push("次回のための合図を一つ決める: 「一旦休憩」と言ったらどちらも一度引く、など。型があると喧嘩は軽くなります。");
+
+  return {
+    phases: [
+      { title: "直後（〜30分）", items: immediately },
+      { title: "当日中", items: sameDay },
+      { title: "数日以内の話し合い", items: nextDays },
+      { title: "仲直りの後", items: after },
+    ],
+  };
+}
+
 export function computeCompatibility(
   aCode: TypeCode,
   bCode: TypeCode,
