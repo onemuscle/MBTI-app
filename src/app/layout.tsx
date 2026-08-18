@@ -15,10 +15,36 @@ const body = Noto_Sans_JP({
   variable: "--font-body",
 });
 
+const SITE_URL = "https://onemuscle.github.io/MBTI-app/";
+const DESCRIPTION =
+  "16タイプの性格図鑑と、仕事・友達・恋愛の3つの関係別相性ガイド。相手を理解し、伝え方を変え、関係を良くするためのWebアプリ。登録不要・無料。";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
-  description:
-    "16タイプの性格図鑑と、仕事・友達・恋愛の3つの関係別相性ガイド。相手を理解し、伝え方を変え、関係を良くするためのWebアプリ。",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "Type Atlas",
+    locale: "ja_JP",
+    type: "website",
+    images: [
+      {
+        url: `${SITE_URL}og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Type Atlas - 16タイプ性格図鑑 × 相性ナビ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
+    description: DESCRIPTION,
+    images: [`${SITE_URL}og.png`],
+  },
 };
 
 export default function RootLayout({
