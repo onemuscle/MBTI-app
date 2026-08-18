@@ -244,6 +244,14 @@ function ConsultInner() {
 
           {guide && targetType && (
             <>
+              {guide.typeHint && (
+                <section className="card border-2 border-gold/40 p-5">
+                  <h2 className="mb-1.5 text-xs font-bold uppercase tracking-wide text-gold">
+                    💡 {targetType.role}（{target}）へのワンポイント
+                  </h2>
+                  <p className="text-sm leading-relaxed text-ink/85">{guide.typeHint}</p>
+                </section>
+              )}
               <section className="card p-5">
                 <h2 className="mb-3 text-sm font-bold text-ink">
                   {sceneDef.icon} {targetType.role}（{target}）に{sceneDef.label}ときの組み立て
