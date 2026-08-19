@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GROUPS, TYPE_CODES, TYPES, GroupKey } from "@/data/atlas";
 import TypeCard from "@/components/TypeCard";
 import CollectionProgress from "@/components/CollectionProgress";
@@ -14,6 +15,12 @@ export default function TypesPage() {
         <p className="mt-1 text-sm text-ink/60">
           気になるタイプを選ぶと、特徴・会話のコツ・ストレスサインまで見られます。
         </p>
+        <Link
+          href="/axes"
+          className="mt-2 inline-block text-xs font-bold text-teal underline"
+        >
+          E/I・S/N・F/T・J/P って何？ 4つの軸から知る →
+        </Link>
       </div>
       <CollectionProgress />
       {GROUP_ORDER.map((g) => {

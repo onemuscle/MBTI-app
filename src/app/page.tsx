@@ -97,6 +97,10 @@ export default function HomePage() {
             />
             <p className="mt-2 text-xs text-ink/50">
               タイプが分からない場合は{" "}
+              <Link href="/axes" className="font-bold text-teal underline">
+                4つの軸をゆるく知る
+              </Link>{" "}
+              か、
               <Link href="/types" className="font-bold text-teal underline">
                 図鑑を見ながら
               </Link>{" "}
