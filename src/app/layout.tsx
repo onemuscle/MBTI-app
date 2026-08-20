@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Oswald, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const display = Oswald({
   subsets: ["latin"],
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
   description: DESCRIPTION,
+  // public/manifest.webmanifest に basePath を直書きしているため、
+  // SITE_URL（basePathを含む）を変える場合はそちらも合わせて更新すること
+  manifest: `${SITE_URL}manifest.webmanifest`,
   openGraph: {
     title: "Type Atlas | 16タイプ性格図鑑 × 関係性ナビ",
     description: DESCRIPTION,
@@ -45,6 +49,15 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [`${SITE_URL}og.png`],
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Type Atlas",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2E6F6A",
 };
 
 export default function RootLayout({
@@ -55,6 +68,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${display.variable} ${body.variable}`}>
       <body className="font-sans antialiased min-h-screen pb-20 md:pb-0 md:pt-16">
+        <ServiceWorkerRegister />
         <Nav />
         <main className="mx-auto max-w-3xl px-4 py-6">{children}</main>
         <footer className="mx-auto max-w-3xl px-4 pb-8 pt-4 text-center text-xs text-ink/50">

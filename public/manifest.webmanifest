@@ -1,0 +1,29 @@
+{
+  "name": "Type Atlas | 16タイプ性格図鑑 × 相性ナビ",
+  "short_name": "TypeAtlas",
+  "description": "16タイプの性格図鑑と、仕事・友達・恋愛の関係別相性ガイド。相手を理解し、伝え方を変え、関係を良くするためのアプリ。",
+  "start_url": "/MBTI-app/",
+  "scope": "/MBTI-app/",
+  "display": "standalone",
+  "background_color": "#F4F6F8",
+  "theme_color": "#2E6F6A",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/MBTI-app/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/MBTI-app/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/MBTI-app/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
