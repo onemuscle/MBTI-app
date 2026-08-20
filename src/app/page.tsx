@@ -96,19 +96,44 @@ export default function HomePage() {
               }}
             />
             <p className="mt-2 text-xs text-ink/50">
-              タイプが分からない場合は{" "}
-              <Link href="/axes" className="font-bold text-teal underline">
-                4つの軸をゆるく知る
-              </Link>{" "}
-              か、
+              タイプが分からない場合は、下の「4つの軸をゆるく知る」か{" "}
               <Link href="/types" className="font-bold text-teal underline">
-                図鑑を見ながら
+                図鑑
               </Link>{" "}
-              近いものを選んでみてください。
+              を見ながら近いものを選んでみてください。
             </p>
           </div>
         </section>
       )}
+
+      {/* 4つの軸バナー */}
+      <Link
+        href="/axes"
+        className="card relative flex items-center gap-3 overflow-hidden border-2 border-teal/30 p-4"
+      >
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-teal/10 to-transparent"
+        />
+        <div className="flex shrink-0 -space-x-2 text-2xl">
+          <span>🏖️</span>
+          <span>🛍️</span>
+          <span>💬</span>
+          <span>✈️</span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-[11px] font-bold uppercase tracking-wide text-teal">
+            E/I・S/N・F/T・J/P
+          </p>
+          <p className="font-bold text-ink">4つの軸をゆるく知る</p>
+          <p className="text-xs text-ink/60">
+            タイプのもとになる4つの軸を「あるある」で紹介
+          </p>
+        </div>
+        <span aria-hidden className="shrink-0 text-xl text-teal">
+          →
+        </span>
+      </Link>
 
       {/* クイック相性 */}
       {selfType && people.length > 0 && (
